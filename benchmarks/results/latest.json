@@ -1,0 +1,267 @@
+{
+  "meta": {
+    "machine": {
+      "os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+      "python": "3.14.6",
+      "rustc": "rustc 1.98.0 (88d9e12ae 2026-08-18)",
+      "cpu": "Apple M4",
+      "ram_gib": 16.0
+    },
+    "runs": 5,
+    "warmups": 1,
+    "timestamp": "2026-11-13 20:53:10",
+    "allOutputsMatch": true
+  },
+  "rows": [
+    {
+      "dataset": "10 MB (10,000,103 bytes)",
+      "operation": "scan (parse + severity counts)",
+      "outputsMatch": true,
+      "rustMedianMs": 71.52283302275464,
+      "pythonMedianMs": 227.56058297818527,
+      "rustPeakMiB": 7.453125,
+      "pythonPeakMiB": 12.703125,
+      "rustRunsMs": [
+        71.52283302275464,
+        70.35812496906146,
+        70.81674999790266,
+        159.94220797438174,
+        76.44408300984651
+      ],
+      "pythonRunsMs": [
+        216.18679200764745,
+        216.48879197891802,
+        234.2367919627577,
+        313.7872079969384,
+        227.56058297818527
+      ],
+      "result": {
+        "invalidUtf8Lines": 22,
+        "op": "scan",
+        "severityCounts": {
+          "DEBUG": 14945,
+          "ERROR": 10094,
+          "INFO": 55734,
+          "UNKNOWN": 6605,
+          "WARN": 8788
+        },
+        "totalLines": 96166,
+        "truncatedLines": 1
+      },
+      "speedRatio": 3.181649458792942
+    },
+    {
+      "dataset": "10 MB (10,000,103 bytes)",
+      "operation": "search 'timeout' (all levels)",
+      "outputsMatch": true,
+      "rustMedianMs": 17.5841249874793,
+      "pythonMedianMs": 101.94041702197865,
+      "rustPeakMiB": 6.53125,
+      "pythonPeakMiB": 12.53125,
+      "rustRunsMs": [
+        30.247415998019278,
+        32.35162497730926,
+        17.567375034559518,
+        17.520875029731542,
+        17.5841249874793
+      ],
+      "pythonRunsMs": [
+        133.69616598356515,
+        165.53304198896512,
+        100.46583303483203,
+        95.13724996941164,
+        101.94041702197865
+      ],
+      "result": {
+        "matches": 0,
+        "op": "search",
+        "query": "timeout",
+        "severity": null
+      },
+      "speedRatio": 5.797298250243608
+    },
+    {
+      "dataset": "10 MB (10,000,103 bytes)",
+      "operation": "search 'payment' + ERROR filter",
+      "outputsMatch": true,
+      "rustMedianMs": 21.311749995220453,
+      "pythonMedianMs": 111.14579101558775,
+      "rustPeakMiB": 7.453125,
+      "pythonPeakMiB": 12.34375,
+      "rustRunsMs": [
+        21.088500041514635,
+        21.311749995220453,
+        23.701167025137693,
+        19.79233301244676,
+        22.43658300722018
+      ],
+      "pythonRunsMs": [
+        111.14579101558775,
+        111.02620797464624,
+        112.02758399304003,
+        107.14058298617601,
+        111.6918750340119
+      ],
+      "result": {
+        "matches": 3060,
+        "op": "search",
+        "query": "payment",
+        "severity": "ERROR"
+      },
+      "speedRatio": 5.21523530636922
+    },
+    {
+      "dataset": "10 MB (10,000,103 bytes)",
+      "operation": "scan + error grouping",
+      "outputsMatch": true,
+      "rustMedianMs": 91.76804102025926,
+      "pythonMedianMs": 300.1134169753641,
+      "rustPeakMiB": 8.421875,
+      "pythonPeakMiB": 13.171875,
+      "rustRunsMs": [
+        90.61395796015859,
+        91.76804102025926,
+        100.32629198394716,
+        98.02308300277218,
+        86.16020804038271
+      ],
+      "pythonRunsMs": [
+        302.37370799295604,
+        300.1134169753641,
+        323.5018329578452,
+        294.42520905286074,
+        296.40862497035414
+      ],
+      "result": {
+        "totalLines": 96166,
+        "distinctGroups": 1029
+      },
+      "speedRatio": 3.2703478644499913
+    },
+    {
+      "dataset": "100 MB (100,000,007 bytes)",
+      "operation": "scan (parse + severity counts)",
+      "outputsMatch": true,
+      "rustMedianMs": 663.9406249742024,
+      "pythonMedianMs": 1942.1227910206653,
+      "rustPeakMiB": 7.515625,
+      "pythonPeakMiB": 13.15625,
+      "rustRunsMs": [
+        743.0438750307076,
+        695.795834006276,
+        646.6827500262298,
+        631.8700410192832,
+        663.9406249742024
+      ],
+      "pythonRunsMs": [
+        2286.977667012252,
+        1941.8472910183482,
+        1898.470166954212,
+        1942.1227910206653,
+        2082.54437497817
+      ],
+      "result": {
+        "invalidUtf8Lines": 182,
+        "op": "scan",
+        "severityCounts": {
+          "DEBUG": 148085,
+          "ERROR": 101530,
+          "INFO": 560506,
+          "UNKNOWN": 67358,
+          "WARN": 88708
+        },
+        "totalLines": 966187,
+        "truncatedLines": 3
+      },
+      "speedRatio": 2.925145288550655
+    },
+    {
+      "dataset": "100 MB (100,000,007 bytes)",
+      "operation": "search 'timeout' (all levels)",
+      "outputsMatch": true,
+      "rustMedianMs": 94.98337499098852,
+      "pythonMedianMs": 780.9102080063894,
+      "rustPeakMiB": 6.546875,
+      "pythonPeakMiB": 12.84375,
+      "rustRunsMs": [
+        89.84020800562575,
+        94.16637499816716,
+        97.60662500048056,
+        115.55662500904873,
+        94.98337499098852
+      ],
+      "pythonRunsMs": [
+        837.385417020414,
+        730.7964999927208,
+        780.9102080063894,
+        786.2397090066224,
+        742.633041983936
+      ],
+      "result": {
+        "matches": 0,
+        "op": "search",
+        "query": "timeout",
+        "severity": null
+      },
+      "speedRatio": 8.221546224067925
+    },
+    {
+      "dataset": "100 MB (100,000,007 bytes)",
+      "operation": "search 'payment' + ERROR filter",
+      "outputsMatch": true,
+      "rustMedianMs": 117.87983303656802,
+      "pythonMedianMs": 810.3360419627279,
+      "rustPeakMiB": 7.453125,
+      "pythonPeakMiB": 13.015625,
+      "rustRunsMs": [
+        117.74300003889948,
+        115.3110419982113,
+        120.94237504061311,
+        119.60141599411145,
+        117.87983303656802
+      ],
+      "pythonRunsMs": [
+        787.0495830429718,
+        790.2743330341764,
+        814.3077089916915,
+        818.8252500258386,
+        810.3360419627279
+      ],
+      "result": {
+        "matches": 30618,
+        "op": "search",
+        "query": "payment",
+        "severity": "ERROR"
+      },
+      "speedRatio": 6.874255087478365
+    },
+    {
+      "dataset": "100 MB (100,000,007 bytes)",
+      "operation": "scan + error grouping",
+      "outputsMatch": true,
+      "rustMedianMs": 819.779708981514,
+      "pythonMedianMs": 2821.0550419753417,
+      "rustPeakMiB": 10.46875,
+      "pythonPeakMiB": 16.84375,
+      "rustRunsMs": [
+        814.0144590288401,
+        819.779708981514,
+        840.1484580244869,
+        819.9093749863096,
+        772.8296249988489
+      ],
+      "pythonRunsMs": [
+        2821.0550419753417,
+        2765.2627500356175,
+        2943.160417024046,
+        2945.927708002273,
+        2638.4129999787547
+      ],
+      "result": {
+        "totalLines": 966187,
+        "distinctGroups": 7957
+      },
+      "speedRatio": 3.4412355064023137
+    }
+  ]
+}
