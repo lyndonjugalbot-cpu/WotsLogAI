@@ -1,0 +1,68 @@
+[
+  {
+    "match": "gateway request timed out",
+    "diagnosis": {
+      "summary": "EXAMPLE ONLY: calls to the payment gateway are timing out after 30 seconds, so orders fail at checkout.",
+      "likelyCauses": [
+        "The upstream payment gateway is slow or partially unavailable (hypothesis).",
+        "The client timeout (30000ms) is shorter than the gateway's worst-case latency under load (hypothesis)."
+      ],
+      "evidence": [
+        { "sample": 0, "explanation": "First occurrence: the request exceeded the 30000ms client timeout." },
+        { "sample": 1, "explanation": "Same signature with a different order and request ID, so this is repeated behaviour, not a one-off." }
+      ],
+      "nextSteps": [
+        "Check the gateway provider's status page and your outbound latency metrics for the same time window.",
+        "Compare timestamps of these failures with deploys or traffic spikes.",
+        "Confirm whether retries are idempotent before adding automatic retries."
+      ],
+      "uncertainty": "The log shows timeouts but not whether the slowness is in the network, the gateway, or this service."
+    }
+  },
+  {
+    "match": "connection refused",
+    "diagnosis": {
+      "summary": "EXAMPLE ONLY: the service cannot open connections to the primary database; the errors cluster in a short window, which suggests an outage or restart.",
+      "likelyCauses": [
+        "The database process was down or restarting (hypothesis).",
+        "Connection limit or network rule change blocking new connections (hypothesis)."
+      ],
+      "evidence": [
+        { "sample": 0, "explanation": "Connection refused (E_DB_CONN) to the primary on port 5432." },
+        { "sample": 2, "explanation": "Still failing on a later attempt, so the first failure was not transient." }
+      ],
+      "nextSteps": [
+        "Check database host health and recent restarts for this time range.",
+        "Verify connection pool limits against the database's max connections.",
+        "Look for a firewall or security-group change near the first failure."
+      ],
+      "uncertainty": "Only the client side is visible here; the database's own logs are needed to confirm the cause."
+    }
+  },
+  {
+    "match": "NullPointerException",
+    "diagnosis": {
+      "summary": "EXAMPLE ONLY: a null value is dereferenced while mapping a user profile.",
+      "likelyCauses": ["Profile records missing an expected field are not handled in the mapper (hypothesis)."],
+      "evidence": [{ "sample": 0, "explanation": "The exception originates in ProfileMapper.map at line 88." }],
+      "nextSteps": [
+        "Inspect the mapper at the reported line and add a null check or default.",
+        "Find which user records trigger it by comparing the user IDs involved."
+      ],
+      "uncertainty": "The stack trace is not included in the excerpt, so the exact null variable is unknown."
+    }
+  },
+  {
+    "match": "token validation failed",
+    "diagnosis": {
+      "summary": "EXAMPLE ONLY: authentication tokens are being rejected as expired for the same account.",
+      "likelyCauses": ["The client keeps using a cached token past its expiry (hypothesis).", "Clock skew between services (hypothesis)."],
+      "evidence": [{ "sample": 0, "explanation": "Validation failed with reason=expired." }],
+      "nextSteps": [
+        "Check whether the client refreshes tokens before expiry.",
+        "Compare system clocks between the auth service and the caller."
+      ],
+      "uncertainty": "The log does not show token lifetimes, so skew versus a missing refresh cannot be told apart."
+    }
+  }
+]
