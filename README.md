@@ -2,6 +2,8 @@
 
 A local-first desktop log analyzer (Tauri 2 + Rust + React/TypeScript). Import a log file, search and filter it, group repeated errors, and optionally ask an OpenAI-compatible model to explain an error group. Raw logs stay on your machine; only an excerpt you have reviewed and approved is ever sent.
 
+**Live browser preview:** https://wotslog-ai.vercel.app (synthetic demo data and a simulated backend; the real app is the desktop build).
+
 Status: **P0 implemented and verified as described below. No P1 features.** Specification: [SPEC.md](SPEC.md).
 
 ## Setup

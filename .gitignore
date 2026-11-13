@@ -9,3 +9,4 @@ benchmarks/data/
 benchmarks/results/*.tmp
 __pycache__/
 .vercel/
+.vercel
