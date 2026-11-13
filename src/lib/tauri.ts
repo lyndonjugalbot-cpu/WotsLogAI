@@ -1,5 +1,6 @@
 import { invoke } from '@tauri-apps/api/core'
 import { listen } from '@tauri-apps/api/event'
+import { isTauri, webBackend } from '@/lib/webDemo'
 import type {
   AiSettingsView, AnalysisPreview, AnalysisResult, AppErr, DemoAnalysis, PageResult, ScanResult, SessionInfo,
 } from '@/types'
@@ -33,7 +34,7 @@ export interface SaveSettingsArgs {
 }
 
 // Only typed wrappers over the allow-listed commands. No paths and no keys are ever read back from Rust.
-export const api = {
+const desktopApi = {
   selectLog: () => call<SessionInfo | null>('select_log'),
   loadDemo: () => call<SessionInfo>('load_demo'),
   scanLog: (sessionId: string, scanId: string) => call<ScanResult>('scan_log', { sessionId, scanId }),
@@ -48,3 +49,13 @@ export const api = {
   onProgress: (cb: (p: { scanId: string; bytesRead: number; totalBytes: number }) => void) =>
     listen<{ scanId: string; bytesRead: number; totalBytes: number }>('scan-progress', (e) => cb(e.payload)),
 }
+
+export const api: typeof desktopApi = isTauri()
+  ? desktopApi
+  : {
+      ...desktopApi,
+      ...webBackend,
+      cancelScan: async () => {},
+      analyzeError: async () => { throw { code: 'aiDisabled', message: 'Live AI is not available in the browser preview.' } },
+      onProgress: async () => () => {},
+    }
