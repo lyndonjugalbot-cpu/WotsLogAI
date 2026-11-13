@@ -11,6 +11,7 @@ import { useLogSession } from '@/features/logs/useLogSession'
 import { Welcome } from '@/features/logs/Welcome'
 import { formatBytes, formatMs, friendlyError, groupFilterQuery } from '@/lib/format'
 import { api } from '@/lib/tauri'
+import { isTauri } from '@/lib/webDemo'
 import type { AiSettingsView, ErrorGroup } from '@/types'
 
 export default function App() {
@@ -37,6 +38,7 @@ export default function App() {
   if (phase === 'welcome') {
     return (
       <>
+        {!isTauri() && <p role="note" className="fixed bottom-3 left-1/2 -translate-x-1/2 rounded-md border border-warn/50 bg-warn/10 px-3 py-1.5 text-xs text-warn">Browser preview: synthetic demo data only. The real app is a desktop tool.</p>}
         <Welcome onOpen={openFile} onDemo={openDemo} error={error ? friendlyError(error.code, error.message) : null} />
         <div className="fixed top-3 right-3">
           <Button variant="ghost" size="sm" onClick={() => setSettingsOpen(true)}><Settings className="size-4" /> AI settings</Button>
@@ -48,6 +50,12 @@ export default function App() {
 
   return (
     <div className="flex h-full flex-col gap-3 p-4">
+      {!isTauri() && (
+        <p role="note" className="rounded-md border border-warn/50 bg-warn/10 p-2 text-xs text-warn">
+          Browser preview with synthetic demo data and a simulated backend. The real app is a desktop (Tauri + Rust) tool that
+          processes your own files locally. <a className="underline" href="https://github.com/lyndonjugalbot-cpu/WotsLogAI">Source and download instructions</a>.
+        </p>
+      )}
       <header className="flex flex-wrap items-center gap-3">
         <div className="min-w-0">
           <h1 className="truncate text-base font-semibold">
