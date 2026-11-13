@@ -23,7 +23,7 @@ export function GroupList({
           {groups.map((g) => (
             <li key={g.id} className={cn('rounded-lg border bg-card p-3', selectedId === g.id && 'border-primary ring-1 ring-primary')}>
               <div className="flex items-start justify-between gap-2">
-                <span className="font-mono text-xs leading-snug break-words" title={g.signature}>
+                <span className="font-mono text-xs min-w-0 leading-snug break-all" title={g.signature}>
                   {g.signature.length > 140 ? g.signature.slice(0, 140) + '…' : g.signature}
                 </span>
                 <span className="shrink-0 rounded bg-destructive/15 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-destructive">

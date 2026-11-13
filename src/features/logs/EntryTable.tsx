@@ -36,7 +36,7 @@ export function EntryTable({
             <thead className="sticky top-0 bg-muted text-left text-muted-foreground">
               <tr>
                 <th className="w-16 px-3 py-2 font-medium">Line</th>
-                <th className="w-48 px-3 py-2 font-medium">Time</th>
+                <th className="w-56 px-3 py-2 font-medium">Time</th>
                 <th className="w-24 px-3 py-2 font-medium">Level</th>
                 <th className="px-3 py-2 font-medium">Message</th>
               </tr>
@@ -45,7 +45,7 @@ export function EntryTable({
               {data.entries.map((e) => (
                 <tr key={e.lineNumber} className="border-t align-top hover:bg-muted/50">
                   <td className="px-3 py-1.5 font-mono tabular-nums text-muted-foreground">{e.lineNumber}</td>
-                  <td className="px-3 py-1.5 font-mono text-muted-foreground">{e.timestamp ?? ''}</td>
+                  <td className="whitespace-nowrap px-3 py-1.5 font-mono text-muted-foreground">{e.timestamp ?? ''}</td>
                   <td className="px-3 py-1.5"><Badge variant={VARIANT[e.severity]}>{e.severity}</Badge></td>
                   <td className="px-3 py-1.5 font-mono break-all whitespace-pre-wrap">
                     {e.message.length > 600 ? e.message.slice(0, 600) + '…' : e.message}
