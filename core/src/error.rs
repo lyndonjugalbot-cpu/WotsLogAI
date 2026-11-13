@@ -103,10 +103,9 @@ impl From<std::io::Error> for AppError {
 
 impl Serialize for AppError {
     fn serialize<S: Serializer>(&self, s: S) -> std::result::Result<S::Ok, S::Error> {
-        let mut st = s.serialize_struct("AppError", 3)?;
+        let mut st = s.serialize_struct("AppError", 2)?;
         st.serialize_field("code", self.code())?;
         st.serialize_field("message", &self.to_string())?;
-        st.serialize_field("retryable", &self.is_retryable())?;
         st.end()
     }
 }

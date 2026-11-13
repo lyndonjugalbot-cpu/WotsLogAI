@@ -76,14 +76,17 @@ impl ApprovalStore {
     }
 
     /// Finish a request. `keep_for_retry` keeps it (once) after a retryable failure; otherwise it is consumed.
-    pub fn finish(&mut self, id: &str, keep_for_retry: bool) {
+    /// Returns whether the approval was kept (i.e. one more attempt is possible).
+    pub fn finish(&mut self, id: &str, keep_for_retry: bool) -> bool {
         match self.map.get_mut(id) {
             Some(a) if keep_for_retry && !a.retry_used => {
                 a.retry_used = true;
                 a.in_flight = false;
+                true
             }
             _ => {
                 self.map.remove(id);
+                false
             }
         }
     }
