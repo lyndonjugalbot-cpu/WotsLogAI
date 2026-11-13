@@ -7,3 +7,4 @@ target/
 .env*
 benchmarks/data/
 benchmarks/results/*.tmp
+__pycache__/
