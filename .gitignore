@@ -1,0 +1,9 @@
+._*
+.DS_Store
+.cache/
+node_modules/
+dist/
+target/
+.env*
+benchmarks/data/
+benchmarks/results/*.tmp
